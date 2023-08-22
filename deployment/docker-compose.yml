@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  trino_server:
+    container_name: trino
+    image: trinodb/trino:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data/trino:/etc/trino
+      - ./data/trino/catalog:/etc/trino/catalog
+      - ./data/trino/plugin:/etc/trino/plugin
+
+  demo_postgres:
+    container_name: demo_postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    env_file: ./envs/postgres.env
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
